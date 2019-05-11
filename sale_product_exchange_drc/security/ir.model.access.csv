@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_claim,sale.claim,model_sale_claim,sales_team.group_sale_salesman,1,1,1,0
+access_sale_claim_line,sale.claim.line,model_sale_claim_line,sales_team.group_sale_salesman,1,1,1,1
+access_claim_order_line_accountant,claim.order.line accountant,model_sale_claim_line,account.group_account_user,1,1,0,0
+access_claim_order_manager,sale.claim.manager,model_sale_claim,sales_team.group_sale_manager,1,1,1,1

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="ClientListScreenWidget">
+        <t t-jquery="span.back" t-operation="after">
+            <t t-if="widget.pos.config.partner_id">
+                <span class='button default highlight' style="left: 120px;margin-left: 12px;">
+                    Default Customer
+                </span>
+            </t>
+        </t>
+    </t>
+
+</templates>

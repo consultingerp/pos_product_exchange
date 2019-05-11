@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+        <template id="point_of_sale.assets_backend" name="point_of_sale assets" inherit_id="point_of_sale.assets">
+            <!-- <xpath expr="//link[@href='/point_of_sale/static/src/css/pos.css']" position="replace">
+                <link rel="stylesheet" href="/pos_receipt_ext/static/src/css/pos.css" id="pos-stylesheet"/>
+            </xpath> -->
+
+            <xpath expr="//script[@src='/point_of_sale/static/src/js/models.js']" position="replace">
+                <script type="text/javascript" src="/de_pos_receipt/static/src/js/models.js"></script>
+            </xpath>
+            <!-- <xpath expr="//script[@src='/point_of_sale/static/src/js/widget_base.js']" position="replace">
+                <script type="text/javascript" src="/pos_receipt_ext/static/src/js/widget_base.js"></script>
+            </xpath> -->
+        </template>
+        
+        <!-- Add custom js for POS Logo Change -->      
+        <template id="assets_for_pos_logo" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/de_pos_receipt/static/src/js/pos_logo_change.js"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

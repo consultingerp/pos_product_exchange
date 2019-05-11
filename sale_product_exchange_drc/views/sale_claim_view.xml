@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_sale_claim_search" model="ir.ui.view">
+            <field name="name">sale_product_claim_search</field>
+            <field name="model">sale.claim</field>
+            <field name="arch" type="xml">
+                <search string="Sale Claims">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <filter string="New" domain="[('state','=','new')]" name="claim_new_state"/>
+                    <filter string="In-Progress" domain="[('state','=','progress')]"
+                            name="claim_progress_state"/>
+                    <filter string="Product Received" domain="[('state','=','received')]"
+                            name="claim_received_state"/>
+                    <filter string="Done" domain="[('state','=','done')]" name="claim_done_state"/>
+                    <group string="Group By">
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_sale_claim_tree" model="ir.ui.view">
+            <field name="name">sale_product_claim_tree</field>
+            <field name="model">sale.claim</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Claims">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="claim_sub"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sale_claim_form" model="ir.ui.view">
+            <field name="name">sale_product_claim_form</field>
+            <field name="model">sale.claim</field>
+            <field name="arch" type="xml">
+                <form string="Sale Claims">
+                    <header>
+                        <button name="claim_confirm" string="Confirm" type="object"
+                                class="oe_highlight" attrs="{'invisible':[('state','!=','new')]}"/>
+                        <button name="create_in_shipment" string="Receive Product"
+                                type="object" class="oe_highlight"
+                                attrs="{'invisible':['|',('state','!=','progress'),('received','=',True)]}"/>
+                        <button name="create_out_shipment" string="Deliver Product"
+                                attrs="{'invisible':['|',('state','!=','progress'),'|',('received','=',False),('return_type','=','credit_return')]}"
+                                type="object" class="oe_highlight"/>
+                        <button name="create_claim_refund_invoice" type="object" string="Create Invoice"
+                                class="oe_highlight"
+                                attrs="{'invisible':['|',('state','!=','progress'),'|',('received','=',False),'|',('return_type','!=','credit_return'),('invoice_ids','!=',[])]}"/>
+                        <button name="fetch_products" string="Fetch Products"
+                                type="object" class="oe_highlight"
+                                attrs="{'invisible':[('state','!=','new')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="object" class="oe_stat_button" icon="fa-pencil-square-o"
+                                    name="open_refund_invoice" attrs="{'invisible': [('total_invoices', '=', 0)]}">
+                                <field name="total_invoices" widget="statinfo" string="Invoice"/>
+                            </button>
+                            <button name="action_view_picking" type="object" class="oe_stat_button"
+                                    icon="fa-truck" attrs="{'invisible': [('picking_count', '=', 0)]}">
+                                <field name="picking_count" widget="statinfo" string="Delivery"/>
+                            </button>
+                        </div>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="invoice_ids" invisible="1"/>
+                                <field name="received" invisible="1"/>
+                                <field name="saleorder_id" required="1"
+                                       domain="[('is_claim_created', '=', False),('state', '=', 'sale'),('invoice_status', '=', 'invoiced')]"
+                                       attrs="{'readonly':[('state','!=','new')]}"/>
+                                <field name="partner_id" required="1" attrs="{'readonly':[('state','!=','new')]}"/>
+                                <field name="damage_location" required="1" attrs="{'readonly':[('state','!=','new')]}"
+                                       domain="[('scrap_location','=',False)]" string="Return Location"/>
+                                <field name="group_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="return_type" required="1" attrs="{'readonly':[('state','!=','new')]}"/>
+                                <field name="claim_sub" required="1" attrs="{'readonly':[('state','!=','new')]}"/>
+                            </group>
+                        </group>
+                        <div>
+                            <field placeholder="Add Description ...." name="claim_desc" required="1"
+                                   attrs="{'readonly':[('state','!=','new')]}"/>
+                        </div>
+                        <notebook>
+                            <page string="Order lines">
+                                <field name="line_ids" attrs="{'readonly':[('state','!=','new')]}">
+                                    <tree editable="bottom" create="false">
+                                        <field name="product_id"/>
+                                        <field name="ordered_qty"/>
+                                        <field name="uom_id" groups="product.group_uom"/>
+                                        <field name="return_qty"/>
+                                        <field name="claim_desc"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sale_claim" model="ir.actions.act_window">
+            <field name="name">Claims</field>
+            <field name="res_model">sale.claim</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="context">{}</field>
+        </record>
+
+    <menuitem id="menu_global_search_configuration" parent="sale.sale_order_menu"
+              action="action_sale_claim" sequence="20"/>
+
+</odoo>

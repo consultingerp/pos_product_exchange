@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<report 
+    	id="report_account_journal_entry"
+        string="Journal Entry"
+        model="account.move" 
+        report_type="qweb-pdf"
+        file="tis_journal_entry_print.report_journal_entry_document" 
+        name="tis_journal_entry_print.report_journal_entry_document" 
+	/>
+	
+	<template id="report_journal_entry_document">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="doc">
+				<t t-call="web.external_layout">
+					<div class="page">
+						<div class="raw">
+							<br><h2 class="text-center">Journal Entry</h2></br>
+							<br>
+							<div class="col-xs-6">
+								<strong>NO:</strong>
+								<span t-field="doc.name"/>
+							</div>
+							<div class="col-xs-6">
+								<strong>Date:</strong>
+								<span t-field="doc.date"/>
+							</div>
+							<div class="col-xs-6">
+								<strong>Journal:</strong>
+								<span t-field="doc.journal_id"/>
+							</div>
+							<div t-if="doc.ref" class="col-xs-6">
+								<strong>Reference:</strong>
+								<span t-field="doc.ref"/>
+							</div>
+							</br>
+							<table class="table table-condensed" style=" margin-top:80px;">
+								<thead>
+									<tr>
+										<th>Account</th>
+										<th>Partner</th>
+										<th>Label</th>
+										<th>Analytic Account</th>
+										<th>Debit</th>
+										<th>Credit</th>
+									</tr>
+								</thead>
+								<tbody class="sale_tbody">
+									<t t-foreach="doc.line_ids" t-as="lines">
+										<tr>
+											<td><span t-field="lines.account_id"/></td>
+											<td><span t-field="lines.partner_id"/></td>
+											<td><span t-field="lines.name"/></td>
+											<td><span t-field="lines.analytic_account_id"/></td>
+											<td><span t-field="lines.debit"/></td>
+											<td><span t-field="lines.credit"/></td>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+							<h4 style="text-decoration: underline;">Notes:</h4>
+							<p t-field="doc.narration"/>
+						</div>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

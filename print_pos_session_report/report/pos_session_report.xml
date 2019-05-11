@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="pos_session_report_id"
+            model="pos.session"
+            string="Session Report"
+            report_type="qweb-pdf"
+            name="print_pos_session_report.pos_session_report"
+            file="print_pos_session_report.pos_session_report"
+        />
+        
+        <template id="pos_session_report">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <h2>
+                            <span t-field="doc.name"/>
+                        </h2>
+                        
+                        <div class="row mt32 mb32" id="informations">
+                            <div class="col-xs-3">
+                                <strong> Opening Date:</strong>
+                                <p t-field="doc.start_at"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>Responsible Person:</strong>
+                                <p t-field="doc.user_id"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>Point Of Sale:</strong>
+                                <p t-field="doc.config_id"/>
+                            </div>
+                        </div>
+                            <h2>Summary By Payment Methods</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th class="text-right">Journal</th>
+                                    <th class="text-right">Starting Balance</th>
+                                    <th class="text-right">Transactions</th>
+                                    <th class="text-right">Transactions Subtotal</th>
+                                    <th class="text-right">Ending Balance</th>
+                                    <th class="text-right">Difference</th>
+                                    <th class="text-right">Currency</th>
+                                    <th class="text-right">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody">
+                                    <t t-foreach="doc.statement_ids" t-as="statement">
+                                        <span t-set="amount_total" t-value="0" />
+                                        <tr t-foreach="statement.line_ids" t-as="statement_line_rec">
+                                            <t t-set="amount_total" t-value="amount_total + statement_line_rec.amount" />
+                                        </tr>
+                                        <tr>
+                                            <td><span t-field="statement.name"/></td>
+                                            <td class="text-right">
+                                                <span t-field="statement.journal_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="statement.balance_start"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="amount_total"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="statement.balance_end"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="statement.balance_end_real"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="statement.difference"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="statement.currency_id"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="statement.state"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                           </table>
+                         <div class="row mt32 mb32">
+                        </div>
+                       
+                        <h2>Point Of Sale Orders</h2>
+                            <table class="table table-condensed table-striped">
+                                <thead>
+                                    <!-- <tr>
+                                        <th>Order Reference</th>
+                                        <th class="text-right">Order Date</th>
+                                        <th class="text-right">Customer</th>
+                                        <th class="text-right">Picking Name</th>
+                                        <th class="text-right">Tax Amount</th>
+                                        <th class="text-right">Total Amount</th>
+                                    </tr>
+                                    <tbody class="sale_tbody">
+                                        <t t-foreach="doc.order_ids" t-as="order">
+                                            <tr>
+                                                <td><span t-field="order.name"/></td>
+                                                <td class="text-right">
+                                                    <span t-field="order.date_order"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="order.partner_id"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="order.picking_id"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="order.amount_tax"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="order.amount_total"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody> -->
+                                    <tr>
+                                        <th width="20%">Order Reference</th>
+                                        <th width="20%">Order Date</th>
+                                        <th width="20%">Customer</th>
+                                        <th width="20%">Label</th>
+                                        <th width="20%" class="text-right">Amount</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody class="sale_tbody">
+                                    <span t-set="amount_total" t-value="0" />
+                                    <t t-foreach="doc.statement_ids" t-as="statement_rec">
+                                        <t t-if="statement_rec.journal_id.type == 'cash'">
+                                            <span t-set="sub_total_cash" t-value="0" />
+                                            <tr>
+                                                <td><b>Cash</b></td>
+                                                <td colspan='4'></td>
+                                            </tr>
+                                            <tr t-foreach="statement_rec.line_ids" t-as="statement_line_rec">
+	                                            <td>
+	                                                <span t-field="statement_line_rec.ref"/>
+	                                            </td>
+	                                            <td>
+	                                                <span t-field="statement_line_rec.date"/>
+	                                            </td>
+	                                            <td>
+	                                                <span t-field="statement_line_rec.partner_id.name"/>
+	                                            </td>
+	                                            <td>
+	                                                <span t-field="statement_line_rec.name"/>
+	                                            </td>
+	                                            <td class="text-right">
+	                                                <span t-field="statement_line_rec.amount"/>
+	                                                <t t-set="amount_total" t-value="amount_total + statement_line_rec.amount" />
+	                                                <t t-set="sub_total_cash" t-value="sub_total_cash + statement_line_rec.amount" />
+	                                            </td>
+	                                        </tr>
+                                        </t>
+                                        <t t-if='sub_total_cash'>
+                                            <tr>
+                                                <td colspan='4'></td>
+                                                <strong>
+                                                    <td class="text-right">
+	                                                    Subtotal: <strong><span t-esc='sub_total_cash' 
+	                                                        t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></strong>
+                                                    </td>
+                                                </strong>
+                                            </tr>
+                                            <span t-set="sub_total_cash" t-value="0" />
+                                        </t>
+                                        <t t-if="statement_rec.journal_id.type == 'bank'">
+                                            <span t-set="sub_total_credit" t-value="0" />
+                                            <tr>
+                                                <td><b>Credit</b></td>
+                                                <strong><td colspan='4'></td></strong>
+                                            </tr>
+                                            <tr t-foreach="statement_rec.line_ids" t-as="statement_line_rec">
+                                                <td>
+                                                    <span t-field="statement_line_rec.ref"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="statement_line_rec.date"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="statement_line_rec.partner_id.name"/>
+                                                </td>
+                                                <td>
+                                                    <span t-field="statement_line_rec.name"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="statement_line_rec.amount"/>
+                                                    <t t-set="amount_total" t-value="amount_total + statement_line_rec.amount" />
+                                                    <t t-set="sub_total_credit" t-value="sub_total_credit + statement_line_rec.amount" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-if='sub_total_credit'>
+                                            <tr>
+                                                <td colspan='4'></td>
+                                                <strong>
+                                                    <td class="text-right">
+                                                        Subtotal: <strong><span t-esc='sub_total_credit' 
+                                                            t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></strong>
+                                                    </td>
+                                                </strong>
+                                            </tr>
+                                            <span t-set="sub_total_credit" t-value="0" />
+                                        </t>
+                                    </t>
+                                </tbody>
+                                <tr style="border-top: 2px solid black;border-bottom: 1px solid black;">
+                                    <td colspan="5" class="text-right">
+                                        Total : <strong><span t-esc="amount_total"
+                                            t-options='{"widget": "monetary", "display_currency": doc.currency_id}'/></strong>
+                                    </td>
+                                </tr>
+                           </table>
+                           <br/><br/>
+                           <table class="table-condensed" width="100%">
+                               <tr>
+                                   <td width="50%" class="text-center" >
+                                      <strong>Salesperson</strong>
+                                   </td>
+                                   <td width="50%" class="text-center">
+                                      <strong>Manager</strong>
+                                   </td>
+                               </tr>
+                           </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+

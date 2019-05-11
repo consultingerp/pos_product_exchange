@@ -1,0 +1,297 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_valuation_on_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-22 18:48+0000\n"
+"PO-Revision-Date: 2017-12-22 18:48+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "(If you do not select any categories it will take all categories)"
+msgstr "(If you do not select any categories it will take all categories)"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "(If you do not select any location, then it will take all above warehouses internal locations)"
+msgstr "(If you do not select any location, then it will take all above warehouses internal locations)"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "(If you do not select company it will take all companies)"
+msgstr "(If you do not select company it will take all companies)"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "(If you do not select warehouse it will take all warehouses)"
+msgstr "(If you do not select warehouse it will take all warehouses)"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "<strong style=\"color:#4B524F;font-size: 19px;\">Total Inventory\n"
+"                                            </strong>"
+msgstr "<strong style=\"color:#4B524F;font-size: 19px;\">Total Inventory\n"
+"                                            </strong>"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "<strong>Amount In Currency</strong>"
+msgstr "<strong>Amount In Currency</strong>"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "<strong>Company</strong>"
+msgstr "<strong>Company</strong>"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "<strong>Valuation Date</strong>"
+msgstr "<strong>Valuation Date</strong>"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "<strong>Warehouse</strong>"
+msgstr "<strong>Warehouse</strong>"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "Adjustments"
+msgstr "Adjustments"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "Beginning"
+msgstr "Beginning"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_filter_product_categ_ids
+msgid "Categories"
+msgstr "Categories"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_company_id
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "Company"
+msgstr "Company"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "Cost"
+msgstr "Cost"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_create_uid
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_success_box_create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_create_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_success_box_create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_report_stock_valuation_on_date_stock_valuation_ondate_report_display_name
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_display_name
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_success_box_display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_only_summary
+msgid "Display Only Summary?"
+msgstr "Display Only Summary?"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "Ending"
+msgstr "Ending"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_success_box_file
+msgid "File"
+msgstr "File"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_start_date
+msgid "From Date"
+msgstr "From Date"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_report_stock_valuation_on_date_stock_valuation_ondate_report_id
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_id
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_success_box_id
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "Internal"
+msgstr "Internal"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "Inventory Valuation Report"
+msgstr "Inventory Valuation Report"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_report_stock_valuation_on_date_stock_valuation_ondate_report___last_update
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report___last_update
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_success_box___last_update
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_write_uid
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_success_box_write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_write_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_success_box_write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_location_id
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "Location"
+msgstr "Location"
+
+#. module: stock_valuation_on_date
+#: code:addons/stock_valuation_on_date/wizard/stock_valuation.py:127
+#, python-format
+msgid "Please select company of those warehouses to get correct view.\n"
+"You should remove all warehouses first from selection field."
+msgstr "Please select company of those warehouses to get correct view.\n"
+"You should remove all warehouses first from selection field."
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_filter_product_ids
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "Products"
+msgstr "Products"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "Received"
+msgstr "Received"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "Sales"
+msgstr "Sales"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "Select Categories"
+msgstr "Select Categories"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "Select Location"
+msgstr "Select Location"
+
+#. module: stock_valuation_on_date
+#: model:ir.actions.act_window,name:stock_valuation_on_date.action_inventoryvaluation_report
+#: model:ir.ui.menu,name:stock_valuation_on_date.menu_inventoryvaluation_report
+msgid "Stock Valuation"
+msgstr "Stock Valuation"
+
+#. module: stock_valuation_on_date
+#: model:res.groups,name:stock_valuation_on_date.group_stock_valuation_features
+msgid "Stock Valuation Features"
+msgstr "Stock Valuation Features"
+
+#. module: stock_valuation_on_date
+#: model:ir.actions.report,name:stock_valuation_on_date.action_stock_valuation_ondate
+msgid "Stock Valuation Report"
+msgstr "Stock Valuation Report"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_success_box_fname
+msgid "Text"
+msgstr "Text"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_end_date
+msgid "To Date"
+msgstr "To Date"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.stock_valuation_ondate_report
+msgid "Total Value"
+msgstr "Total Value"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,help:stock_valuation_on_date.field_stock_valuation_ondate_report_only_summary
+msgid "True, it will display only total summary of categories."
+msgstr "True, it will display only total summary of categories."
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "Valuation"
+msgstr "Valuation"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.menu,name:stock_valuation_on_date.menu_inventoryvaluation_main
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "Valuation Report"
+msgstr "Valuation Report"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "Warehouses"
+msgstr "Warehouses"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "_PDF"
+msgstr "_PDF"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "_XLS"
+msgstr "_XLS"
+
+#. module: stock_valuation_on_date
+#: model:ir.ui.view,arch_db:stock_valuation_on_date.view_stock_valuation_ondate_report
+msgid "or"
+msgstr "or"
+
+#. module: stock_valuation_on_date
+#: model:ir.model,name:stock_valuation_on_date.model_report_stock_valuation_on_date_stock_valuation_ondate_report
+msgid "report.stock_valuation_on_date.stock_valuation_ondate_report"
+msgstr "report.stock_valuation_on_date.stock_valuation_ondate_report"
+
+#. module: stock_valuation_on_date
+#: model:ir.model,name:stock_valuation_on_date.model_stock_valuation_ondate_report
+msgid "stock.valuation.ondate.report"
+msgstr "stock.valuation.ondate.report"
+
+#. module: stock_valuation_on_date
+#: model:ir.model,name:stock_valuation_on_date.model_stock_valuation_success_box
+msgid "stock.valuation.success.box"
+msgstr "stock.valuation.success.box"
+
+#. module: stock_valuation_on_date
+#: model:ir.model.fields,field_description:stock_valuation_on_date.field_stock_valuation_ondate_report_warehouse_ids
+msgid "warehouse"
+msgstr "warehouse"
+

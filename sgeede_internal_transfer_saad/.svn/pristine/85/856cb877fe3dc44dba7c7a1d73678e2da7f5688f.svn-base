@@ -1,0 +1,207 @@
+# -*- encoding: utf-8 -*-
+from odoo import fields, api, models
+from odoo.exceptions import UserError
+from odoo.tools.translate import _
+
+class StockInternalTransfer(models.Model):
+    _inherit = 'stock.internal.transfer'
+
+    @api.model
+    def create(self, vals):
+        if 'source_warehouse_id' in vals:
+            warehouse = self.env['stock.warehouse'].browse(vals['source_warehouse_id'])
+            if warehouse.sequence_id:
+                vals['name'] = self.env['ir.sequence'].next_by_code(warehouse.sequence_id.code)
+
+        if 'name' not in vals:
+            vals['name'] = self.env['ir.sequence'].next_by_code('stock.internal.transfer')
+            
+        res = super(StockInternalTransfer, self).create(vals)
+        return res
+
+    @api.multi
+    def action_waiting(self):
+        move_obj = self.env['stock.move']
+        picking_obj = self.env['stock.picking']
+        picking_type_obj = self.env['stock.picking.type']
+        company = self.env['res.users'].browse(self._uid).company_id
+
+        if not company.transit_location_id:
+            raise UserError(_('Please setup your stock transit location in Setting - Internal Transfer Configuration'))
+
+        for transfer in self:
+            if not transfer.line_ids:
+                raise UserError(_('You cannot confirm a stock transfer which has no line'))
+
+            picking_types = picking_type_obj.search([('default_location_src_id', '=', transfer.source_warehouse_id.lot_stock_id.id),
+                ('code', '=', 'outgoing')])
+
+            if picking_types:
+                for picking_type in picking_types:
+                    picking = picking_obj.create({
+                        'picking_type_id' : picking_type.id,
+                        'transfer_id' : transfer.id,
+                        'location_id': transfer.source_warehouse_id.lot_stock_id.id,
+                        'location_dest_id': company.transit_location_id.id,
+                    })
+
+                    for line in transfer.line_ids:
+                        move_obj.create({
+                            'name' : 'Stock Internal Transfer',
+                            'product_id' : line.product_id.id,
+                            'product_uom' : line.product_uom_id.id,
+                            'product_uom_qty' : line.product_qty,
+                            'location_id' : transfer.source_warehouse_id.lot_stock_id.id,
+                            'location_dest_id' : company.transit_location_id.id,
+                            'picking_id' : picking.id,
+                        })
+            else:
+                raise UserError(_('Unable to find source location in Stock Picking'))
+
+            transfer.write({
+                'state': 'waiting'
+            })
+
+        return True
+
+    @api.multi
+    def action_send(self):
+        move_obj = self.env['stock.move']
+        picking = False
+        picking_obj = self.env['stock.picking']
+        picking_type_obj = self.env['stock.picking.type']
+        company = self.env['res.users'].browse(self._uid).company_id
+
+        if not company.transit_location_id:
+            raise UserError(_('Please setup your stock transit location in Setting - Internal Transfer Configuration'))
+
+        for transfer in self:
+            picking_types = picking_type_obj.search([('default_location_src_id', '=', transfer.source_warehouse_id.lot_stock_id.id),
+                ('code', '=', 'outgoing')])
+
+            for picking_type in picking_types:
+                picking = picking_obj.search([('transfer_id', '=', transfer.id), ('picking_type_id', '=', picking_type.id)], limit=1)
+                
+                if picking:
+                    picking.action_confirm()
+                    picking.action_assign()
+                    picking.button_validate()
+                    immd_trf = self.env['stock.immediate.transfer'].search([('pick_ids', '=', picking.id)])
+                    immd_trf.process()
+                    picking.action_done()
+
+            picking_types = picking_type_obj.search([('default_location_dest_id', '=', transfer.dest_warehouse_id.lot_stock_id.id),
+                ('code', '=', 'incoming')])
+            for picking_type in picking_types:
+                new_picking = picking_obj.create({
+                    'picking_type_id': picking_type.id,
+                    'transfer_id': transfer.id,
+                    'location_id': company.transit_location_id.id,
+                    'location_dest_id': transfer.dest_warehouse_id.lot_stock_id.id,
+                })
+
+            if picking:
+                for move in picking.move_lines:
+                    move_obj.create({
+                        'name': 'Stock Internal Transfer',
+                        'product_id': move.product_id.id,
+                        'product_uom': move.product_uom.id,
+                        'product_uom_qty': move.product_qty,
+                        'location_id': company.transit_location_id.id,
+                        'location_dest_id': transfer.dest_warehouse_id.lot_stock_id.id,
+                        'picking_id': new_picking.id,
+                    })
+            else:
+                for line in transfer.line_ids:
+                    move_obj.create({
+                        'name': 'Stock Internal Transfer',
+                        'product_id': line.product_id.id,
+                        'product_uom': line.product_uom_id.id,
+                        'product_uom_qty': line.product_qty,
+                        'location_id': transfer.dest_warehouse_id.lot_stock_id.id,
+                        'location_dest_id': company.transit_location_id.id,
+                        'picking_id': new_picking.id,
+                    })
+
+            transfer.write({'state': 'send'})
+
+        return True
+
+    @api.multi
+    def action_receive(self):
+        picking = False
+        picking_obj = self.env['stock.picking']
+        picking_type_obj = self.env['stock.picking.type']
+
+        for transfer in self:
+            picking_types = picking_type_obj.search([('default_location_dest_id', '=', transfer.dest_warehouse_id.lot_stock_id.id),
+                ('code', '=', 'incoming')])
+
+            for picking_type in picking_types:
+                picking = picking_obj.search([('transfer_id', '=', transfer.id), ('picking_type_id', '=', picking_type.id)], limit=1)
+                
+                if picking:
+                    picking.action_confirm()
+                    picking.action_assign()
+                    picking.button_validate()
+                    immd_trf = self.env['stock.immediate.transfer'].search([('pick_ids', '=', picking.id)])
+                    immd_trf.process()
+                    picking.action_done()
+
+            transfer.write({'state': 'done'})
+        
+        return True
+
+    @api.multi
+    def action_print_outgoing(self):
+        picking_obj = self.env['stock.picking']
+        picking_type_obj = self.env['stock.picking.type']
+        context = self._context.copy()
+
+        for transfer in self:
+            context['internal_transfer'] = transfer.name
+
+            user_ids = transfer.source_warehouse_id.user_ids
+            if self._uid not in user_ids._ids:
+                raise UserError(_('You are not authorized to print this picking!'))
+
+            picking_types = picking_type_obj.search([('default_location_src_id', '=', transfer.source_warehouse_id.lot_stock_id.id),
+                ('code', '=', 'outgoing')])
+
+            for picking_type in picking_types:
+                picking = picking_obj.search([('transfer_id', '=', transfer.id), ('picking_type_id', '=', picking_type.id)], limit=1)
+
+                if picking:
+                    return picking.with_context(context).do_print_picking()
+                else:
+                    raise UserError(_('Outgoing not found, please recheck your data!'))
+
+        return True
+
+    @api.multi
+    def action_print_incoming(self):
+        picking_obj = self.env['stock.picking']
+        picking_type_obj = self.env['stock.picking.type']
+        context = self._context.copy()
+
+        for transfer in self:
+            context['internal_transfer'] = transfer.name
+
+            user_ids = transfer.dest_warehouse_id.user_ids
+            if self._uid not in user_ids._ids:
+                raise UserError(_('You are not authorized to print this picking!'))
+
+            picking_types = picking_type_obj.search([('default_location_dest_id', '=', transfer.dest_warehouse_id.lot_stock_id.id),
+                ('code', '=', 'incoming')])
+
+            for picking_type in picking_types:
+                picking = picking_obj.search([('transfer_id', '=', transfer.id), ('picking_type_id', '=', picking_type.id)], limit=1)
+                if picking:
+                    return picking.with_context(context).do_print_picking()
+                else:
+                    raise UserError(_('Incoming not found, please recheck your data!'))
+
+        return True
+
+    name = fields.Char(string= 'Reference', track_visibility="onchange", default=None)
+    state = fields.Selection([('cancel', 'Cancel'), ('draft', 'Draft'), ('waiting', 'Waiting'), ('send', 'Send'), ('done', 'Done')], string="Status", track_visibility="onchange", default="draft")

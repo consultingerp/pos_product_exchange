@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+        
+		<report
+			id="action_report_de_purchase_receipt_report"
+			model="account.voucher"
+			string="Print  Receipt"
+			report_type="qweb-pdf"
+			name="de_purchase_receipt_report.report_de_purchase_receipt_reports"
+			file="de_purchase_receipt_report.report_de_purchase_receipt_reports"
+			
+		/>
+    
+</odoo>

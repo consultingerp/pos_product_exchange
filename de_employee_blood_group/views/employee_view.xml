@@ -1,0 +1,13 @@
+<odoo>
+    <record id="view_employee_blood_group_form_inherited" model="ir.ui.view">
+        <field name="name">view.employee.blood.group.form.inherited</field>
+        <field name="model">hr.employee</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name='bank_account_id' position='after'>
+                <field name='blood_group'/>
+            </field>
+        </field>
+    </record>
+</odoo>

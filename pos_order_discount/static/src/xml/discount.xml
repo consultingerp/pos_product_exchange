@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+
+    <t t-name="DiscountPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup wk_custom_popup">
+                <p class="title">Discounts List</p>
+                <div class="wk_popup_body">
+                    <t t-foreach="widget.options.value || []" t-as="item">
+                        <span class='product' t-att-data-product-id="item.id">
+                            <a href="#" t-att-id="item.id">
+                                <div class="product-img">
+                                    <img t-att-src='widget.get_discount_image_url(item.id)'/>
+                                    <span class="price-tag"><t t-esc="item.name"/></span>
+                                </div>
+                                <div class="product-name wk_discount_name">
+                                    <t t-if="item.short_description">
+                                        <t t-esc="item.short_description" />
+                                    </t>
+                                </div>
+                            </a>
+                        </span>
+                    </t>
+                </div>
+                <div class="footer">
+                    <div class="button cancel">
+                        Cancel
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="XmlReceipt">
+        <t t-jquery=".total" t-operation="replace">
+            <t t-if="widget.pos.get_order().wk_get_discount()">
+                <line class='total'>
+                    <left><pre>        TOTAL</pre></left>
+                    <right><value><t t-esc='receipt.total_with_tax' /></value></right>
+                </line>
+                <line>
+                    <left><pre>        Global Discount</pre></left>
+                    <right><value><t t-esc='widget.pos.get_order().wk_get_discount()' /></value></right>
+                </line>
+                <line class='total' size='double-height'>
+                    <left><pre>        TOTAL</pre></left>
+                    <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.total_with_tax-widget.pos.get_order().wk_get_discount()' /></value></right>
+                </line>
+            </t>
+            <t t-if="! widget.pos.get_order().wk_get_discount()">
+                <line class='total' size='double-height'>
+                    <left><pre>        TOTAL</pre></left>
+                    <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.total_with_tax' /></value></right>
+                </line>
+            </t>
+            <br/><br/>
+        </t>
+    </t>
+    
+    <t t-extend="PosTicket">
+        <t t-jquery=".pos-sale-ticket table .emph" t-operation="replace">
+            <t t-if="order.wk_get_discount()">
+                <tr class="emph">
+                    <td>Total:</td>
+                    <td class="pos-right-align">
+                        <del>
+                            <t t-esc="widget.format_currency(order.get_total_with_tax())" />
+                        </del>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Global Discount:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(order.wk_get_discount())" />
+                    </td>
+                </tr>
+                <tr class="emph">
+                    <td>Total:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(order.get_total_with_tax()-order.wk_get_discount())" />
+                    </td>
+                </tr>
+            </t>
+            <t t-if="! order.wk_get_discount()">
+                <tr class="emph">
+                    <td>Total:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(order.get_total_with_tax())" />
+                    </td>
+                </tr>
+            </t>
+        </t>
+    </t>
+
+</templates>

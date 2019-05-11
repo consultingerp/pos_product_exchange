@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <template id="point_of_sale default_customer" name="aspl_pos_default_customer assets" inherit_id="point_of_sale.index">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/aspl_pos_default_customer/static/src/js/pos.js"></script>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_mrp_workcenter_form_inherit" model="ir.ui.view">
+        <field name="name">view.mrp.workcenter.form.inherit</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[1]/group" position='after'>
+                <group>
+                    <group string="SubContracting">
+                        <field name="is_subcontracting"/>
+                        <field name="partner_id" attrs="{'invisible': [('is_subcontracting', '==', False)], 'required': [('is_subcontracting','==', True)]}"/>
+                        <field name="service_product_id" attrs="{'invisible': [('is_subcontracting', '==', False)], 'required': [('is_subcontracting','==', True)]}"/>
+                        <field name="cost_per_qty" attrs="{'invisible': [('is_subcontracting', '==', False)], 'required': [('is_subcontracting','==', True)]}"/>
+                        <field name="delivery_type_id" attrs="{'invisible': [('is_subcontracting', '==', False)], 'required': [('is_subcontracting','==', True)]}"/>
+                        <field name="return_type_id" attrs="{'invisible': [('is_subcontracting', '==', False)], 'required': [('is_subcontracting','==', True)]}"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

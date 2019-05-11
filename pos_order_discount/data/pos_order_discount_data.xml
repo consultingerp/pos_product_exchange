@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<odoo>
+    <data noupdate="1">
+        <record id="wk_discount_category_1" model="product.category">
+            <field name="name">Discount</field>
+        </record>
+        <record id="wk_discount_product_1" model="product.product">
+            <field name="name">Discount</field>
+            <field name="categ_id" ref="wk_discount_category_1"/>
+            <field name="list_price">0</field>
+            <field name="type">service</field>
+            <field name="sale_ok">False</field>
+            <field name="image" type="base64" file="pos_order_discount/static/description/discount.jpg"/>
+        </record>
+        <record id="pos_order_discount_1" model="pos.order.discount">
+            <field name="name">Gold Discount</field>
+            <field name="discount_method">10</field>
+            <field name="discount_type">percent</field>
+            <field name="short_description">10% discount on invoice</field>
+            <field name="description">10% Discount for regular customer</field>
+            <field name="discount_on">tax_inclusive</field>
+            <field name="file" type="base64" file="pos_order_discount/static/description/discount.jpg"/>
+            
+        </record>
+         <record model="pos.config" id="point_of_sale.pos_config_main">
+            <field name="wk_discount_product_id" ref="wk_discount_product_1"/>
+            <field name="wk_discounts"  eval="[(6,0,[ref('pos_order_discount_1')])]"/>
+        </record>
+    </data>
+</odoo>

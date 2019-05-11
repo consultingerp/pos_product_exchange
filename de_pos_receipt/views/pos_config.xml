@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_pos_config_form_customer_pos" model="ir.ui.view">
+            <field name="name">inherit.pos.config.form.customer.pos</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='row mt16 o_settings_container'][3]" position="after">
+			 	<h2>Customer POS Option</h2>
+                    <div class="row mt16 o_settings_container">
+					<div class="col-xs-12 col-md-6 o_setting_box">
+						<div class="o_setting_left_pane">
+                            <label for="is_partner_pos" string="Customer POS"/>
+							<field name="is_partner_pos"/>
+						</div>
+                    </div>
+                    </div>
+
+                </xpath>
+            </field>
+        </record>
+</odoo>

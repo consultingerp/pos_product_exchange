@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record id="pos_config_inherit_view" model="ir.ui.view">
+            <field name="name">pos.config.inherit.view</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+            <field name="arch" type="xml">
+                <div id="category_reference" position="after">
+                   <div class="col-xs-12 col-md-6 o_setting_box" id="partner">
+                       <div class="o_setting_right_pane">
+                            <label for="partner_id"/>
+                            <div class="content-group">
+	                            <div class="row mt16">
+	                                <label string="Customer" for="partner_id" class="col-md-3 o_light_label"/>
+                                    <field name="partner_id" domain="[('customer','=','True')]"/>
+	                            </div>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

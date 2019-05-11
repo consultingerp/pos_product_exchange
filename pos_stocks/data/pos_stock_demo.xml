@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<odoo>
+    <data noupdate="1">
+    
+        <record id="wk_pos_stock_categ" model="pos.category">
+            <field name="name">stockable Products</field>
+        </record>
+
+        <record model="pos.config" id="point_of_sale.pos_config_main">
+            <field name="start_category">True</field>
+            <field name="iface_start_categ_id" ref="wk_pos_stock_categ"></field>
+        </record>
+
+        <record id="product.product_product_7" model="product.product">
+            <field name="available_in_pos">True</field>
+            <field name="pos_categ_id" ref="wk_pos_stock_categ"/>
+        </record>
+
+        <record id="product.product_product_12" model="product.product">
+            <field name="available_in_pos">True</field>
+            <field name="pos_categ_id" ref="wk_pos_stock_categ"/>
+        </record>
+
+    </data>
+</odoo>

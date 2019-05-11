@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="stock_location_damaged" model="stock.location">
+            <field name="name">Damaged</field>
+            <field name="usage">inventory</field>
+            <field name="company_id"></field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_subcontract_order,access.subcontract.order,model_subcontract_order,,1,1,1,1
+access_subcontract_order_line,access.subcontract_order_line,model_subcontract_order_line,,1,1,1,1
+access_contract_consumable_matrerial,access.contract_consumable_matrerial,model_contract_consumable_matrerial,,1,1,1,1

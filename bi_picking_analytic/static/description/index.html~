@@ -1,0 +1,124 @@
+<section class="oe_container oe_dark"
+	style="overflow: hidden; background: #efefef; box-shadow: none;">
+	<div class="mt32 mb32">
+		<div class="col-md-12">
+			<h2 class="oe_slogan" style="font-size: 35px;">
+				<b>Analytic Account on Stock Picking with Analytic Tags</b>
+			</h2>
+			<h3 class="oe_slogn" style="text-align: center;">
+				This module is useful to create analytic account at time of
+				delivery. Also you can add analytic account in Purchase
+				at time of requesting a Quotation for new products.<br /> <br />
+			</h3>
+
+		</div>
+	</div>
+</section>
+
+
+<section class="container mt32">
+	<div class="row">
+		<h4 class="oe_slogan" style="text-align: center;">
+			<span align="center" class="label label-success "
+				style="background-color: #528df3;"> <span
+				class="fa fa-star fa-spin"></span> How to use
+			</span>
+		</h4>
+	</div>
+</section>
+
+<section class="oe_container oe_dark">
+	<div class="oe_row oe_spaced">
+		<div class="oe_span12">
+			<h3 class="text-info" style="font-size: 25px;text-align: center;">You can add  analytic account for all stock picking lines.</h3>
+			<img border="1"
+				border-color:black; class="img-border img-responsive thumbnail"
+				style="border: 3px solid black;" src="sale-invoice.png"><br/>
+
+		</div>
+
+	</div>
+</section>
+
+<section class="oe_container lead">
+	<div class="oe_row oe_spaced">
+		<div class="oe_span12">
+			<h1 class="text-info" style="text-align: center; padding-bottom: 40px;">
+				<strong>The sale price of the product will be recorded in account analytical line.</strong>
+			</h1>
+			<br /> <img class="img-border img-responsive thumbnail"
+				style="border: 3px solid black;" src="analtic_account_sale.png">
+		</div>
+		<div class="oe_span12">
+			<h1 class="text-info"
+				style="text-align: center; padding-bottom: 40px;">
+				<strong>You can add multiple analytical accounts for all purchase quotations.</strong>
+			</h1>
+			<br /> <img class="img-border img-responsive thumbnail"
+				style="border: 3px solid black;" src="purchase-confirm.png"/>
+		</div>
+	</div>
+</section>
+<section class="oe_container oe_dark">
+	<div class="oe_row oe_spaced">
+		<div class="oe_span12">
+			<h3 class="text-info" style="font-size: 25px;text-align: center;">Analytical Account details are displayed in picking of particular purchase order for each products available.</h3>
+			<img border="1"
+				border-color:black; class="img-border img-responsive thumbnail"
+				style="border: 3px solid black;" src="shipment.png"><br/>
+
+		</div>
+
+
+	</div>
+</section>
+
+<section class="oe_container oe_dark">
+	<div class="oe_row oe_spaced">
+		<div class="oe_span12">
+			<h2 class="oe_slogan">Free Support</h2>
+			<h3 class="oe_slogan"
+				style="font-size: 20px; color: #000000 !important;">You will
+				get 90 Days free support in-case any bugs or issue (Except data
+				recovery).</h3>
+			<p class="oe_slogan">
+				At BrowseInfo we offer end to end solution for Odoo services. Which
+				includes analysis &amp; consultation on the work flows and
+				integration part. Please note that You're not allowed to distribute
+				this module after purchase! In-case of any question regarding this
+				module feel free to email us on <a href="mailto:sales@browseinfo.in">sales@browseinfo.in</a>
+				or raise a ticket on support.
+			</p>
+		</div>
+	</div>
+</section>
+
+
+<section class="oe_container lead"
+	style="overflow: hidden; background: #efefef; box-shadow: none;">
+	<div class="oe_row oe_spaced">
+		<div class="oe_span12">
+			<h2 class="oe_slogan">
+				<a href="http://www.browseinfo.in" target="new"> <img
+					src="bi_logo.png">
+				</a> <br> <a href="sales@browseinfo.in"
+					style="color: #000000 !important;"> Get Help &amp; Support</a>
+			</h2>
+		</div>
+		<br>
+		<div class="oe_slogan oe_spaced text-center">
+			<a class="btn btn-success mt8" title="Website"
+				style="background-color: #9B0F4E; color: #FFFFFF !important;"
+				href="http://www.browseinfo.in"> Website </a> <a
+				class="btn btn-success mt8" title="Blog"
+				style="background-color: #9B0F4E; color: #FFFFFF !important;"
+				href="http://www.blog.browseinfo.in"> Blog </a> <a
+				class="btn btn-success mt8" title="Contact Us"
+				style="background-color: #9B0F4E; color: #FFFFFF !important;"
+				href="mailto:sales@browseinfo.in"> Support </a> <a
+				class="btn btn-success mt8" title="Request New Features now !"
+				style="background-color: #9B0F4E; color: #FFFFFF !important;"
+				href="mailto:sales@browseinfo.in"> Request New Features </a>
+		</div>
+	</div>
+</section>

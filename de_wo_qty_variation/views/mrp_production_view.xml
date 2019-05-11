@@ -1,0 +1,16 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="mrp_production_qty_variation_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.qty.variation.form.view</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='button_unreserve']" position="after">
+                <!-- Add your fields or attributes here -->
+                <button name="close_forcefully" type="object" string="Forcefully Closed"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

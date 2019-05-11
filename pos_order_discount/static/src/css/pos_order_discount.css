@@ -1,0 +1,147 @@
+/* Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) */
+/* See LICENSE file for full copyright and licensing details. */
+/* License URL : <https://store.webkul.com/license.html/> */
+.wk_custom_popup {
+    height: 450px !important;
+}
+
+.wk_popup_body {
+    overflow: scroll;
+    height: 327px;
+}
+
+.wk_discount_popup {
+    width: 565px;
+    height: 480px;
+    margin-left: 656px;
+    margin-top: 98px;
+    font-size: 11px;
+    background-color: #F0EEEE;
+    position: absolute;
+}
+
+.wk_discount-header {
+    height: 55px;
+    background: -webkit-linear-gradient(#FFFFFF, #D7D7D7);
+    /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#FFFFFF, #D7D7D7);
+    /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#FFFFFF, #D7D7D7);
+    /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#FFFFFF, #D7D7D7);
+    /* Standard syntax (must be last) */
+}
+
+.wk_discount_header_content {
+    padding-top: 14px;
+}
+
+.wk_discount_header_text {
+    padding-left: 9px;
+    font-family: Lato;
+    font-size: 20px;
+    color: #404040 !important;
+}
+
+.wk_discount_name {
+    font-family: "Lato", "Lucida Grande", Helvetica, Verdana, Arial;
+    color: #555;
+    font-size: 12px;
+    text-shadow: none;
+}
+
+.wk_discount_widget_cancel {
+    margin-left: 400px;
+    cursor: pointer;
+}
+
+.discount_lis_class {
+    padding: 10px !important;
+    width: 545px !important;
+    height: 400px !important;
+    overflow: scroll;
+}
+
+.custom-dialog .popup-select-products .product-header .product-heading {
+    margin-top: -10px;
+    padding-top: 14px;
+}
+
+.carrybag-button:active {
+    background: #7F82AC;
+    border: solid 1px #7F82AC;
+    color: white;
+}
+
+.discountline-delete {
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    text-align: center;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 10px;
+    left: 8px;
+    cursor: pointer;
+}
+
+.wk_widget_cancel {
+    width: 41px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    color: red;
+    margin: -1px 12px 4px 3px !important;
+}
+
+.discountline-name {
+    margin-bottom: 8px;
+}
+
+.discountline_selected {
+    background: none repeat scroll 0% 0% #DCDCDC;
+}
+
+.discountline-input {
+    font-size: 20px;
+    font-family: Lato;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    outline: medium none;
+    border: medium none;
+    padding: 6px 8px;
+    background: none repeat scroll 0% 0% #FFF;
+    color: #484848;
+    text-align: right;
+    border-radius: 3px;
+    box-shadow: 0px 2px rgba(143, 143, 143, 0.3) inset;
+}
+
+.discount_cancel {
+    display: none;
+}
+
+.wk_discount_block {
+    cursor: pointer;
+}
+
+.wk_color {
+    text-decoration: line-through;
+}
+
+.disocunt-grid {
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    line-height: 100px;
+    font-size: 11px;
+    margin: 8px !important;
+    width: 122px;
+    height: 115px;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 3px;
+    border-bottom-width: 3px;
+    overflow: hidden;
+    cursor: pointer;
+}

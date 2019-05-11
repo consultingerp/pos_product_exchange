@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_picking_inherit" inherit_id="stock.report_picking">
+            <xpath expr="//table[hasclass('table-condensed')][1]" position="replace">
+                <div class="row clearfix mb8" t-if="o.transfer_id">
+                    <div class="col-xs-4">
+                        <span><strong>Create Date:</strong></span>
+                        <div t-field="o.transfer_id.create_date"/>
+                    </div>
+
+                    <div class="col-xs-4" t-if="o.transfer_id.sent_date">
+                        <span><strong>Sent Date:</strong></span>
+                        <div t-field="o.transfer_id.sent_date"/>
+                    </div>
+
+                    <div class="col-xs-4" t-if="o.transfer_id.received_date">
+                        <span><strong>Received Date:</strong></span>
+                        <div t-field="o.transfer_id.received_date"/>
+                    </div>
+                </div>
+                <div class="row mt8 mb24" t-if="o.transfer_id">
+                    <div class="col-xs-4">
+                        <span><strong>Sender:</strong></span>
+                        <div t-field="o.transfer_id.create_uid"/>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <span><strong>Source Warehouse:</strong></span>
+                        <div t-field="o.transfer_id.source_warehouse_id"/>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <span><strong>Destination Warehouse:</strong></span>
+                        <div t-field="o.transfer_id.dest_warehouse_id"/>
+                    </div>
+                </div>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th t-if="o.origin"><strong>Order (Origin)</strong></th>
+                            <th><strong>State</strong></th>
+                            <th><strong>Commitment Date</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td t-if="o.origin">
+                                <span t-field="o.origin"/>
+                            </td>
+                            <td>
+                                <span t-field="o.state"/>
+                            </td>
+                            <td>
+                                <span t-field="o.date"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
