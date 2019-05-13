@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<!-- Modificamos el header por defecto agregando el vat -->
+<template id="external_layout_header" inherit_id="web.external_layout_background">
+    <xpath expr="//div[@class='text-muted']" position="before">
+        <div> <img src="de_purchase_receipt_report/static/logo.png"  width="300" height="100"  /></div>
+    </xpath>
+
+
+</template>
+
+
+</odoo>

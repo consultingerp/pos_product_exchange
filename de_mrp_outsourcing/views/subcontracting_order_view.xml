@@ -1,0 +1,17 @@
+<odoo>
+    <record id="subcontracting_order_action" model="ir.actions.act_window">
+        <field name="name">Subcontracting Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click here to create a new Subcontracting Order
+          </p>
+        </field>
+        <field name="domain">[('is_subcontracting', '=', True)]</field>
+    </record>
+
+    <menuitem id="subcontracting_order_menu" name="" parent="mrp.menu_mrp_manufacturing" action="subcontracting_order_action" sequence="50"/>
+
+</odoo>

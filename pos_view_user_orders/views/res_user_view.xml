@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<odoo>
+    <record id="pos_restrict_order_inherit_res_user_view" model="ir.ui.view">
+        <field name="name">res.users.form.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="point_of_sale.res_users_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='barcode']" position="before">
+                    <field name="restrict_pos_order" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

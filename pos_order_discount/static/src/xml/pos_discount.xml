@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<templates id="template" xml:space="preserve">
+
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery=".payment-screen .screen-content .right-content .payment-buttons" t-operation="append">
+            <t t-if='widget.pos.config.wk_discount_product_id'>
+                <div class='button js_discounts'>
+                    <i class='fa  fa-heart' /> Discount
+                </div>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="PaymentScreen-Paymentlines">
+        <t t-jquery=".paymentlines-empty .total" t-operation="replace">
+            <div class='total'>
+                <t t-if="order.wk_get_discount()">
+                    <span class="wk_color"><t t-esc="widget.format_currency(order.get_total_with_tax())"/></span>
+                </t>
+                <t t-if="! order.wk_get_discount()">
+                    <t t-esc="widget.format_currency(order.get_total_with_tax())" />
+                </t>
+                <t t-if="order.wk_get_discount()">
+                    <b style="font-size: 30px;"><t t-esc="widget.format_currency(order.get_total_with_tax()-order.wk_get_discount())"/></b>
+                </t>
+            </div>
+        </t>
+
+        <t t-jquery="t[t-if='paymentlines.length']" t-operation="append">
+            <t t-if="order.wk_get_discount()">
+                <table style="width:100%;margin-top:10px">
+                    <tbody>
+                        <tr class='paymentline selected'>
+                            <td>Discount</td>
+                            <td>
+                                <t t-esc="order.wk_get_discount_info()" />
+                            </td>
+                            <td>-
+                                <t t-esc="widget.format_currency(order.wk_get_discount())" />
+                            </td>
+                            <td class='wk_discount_block'> <i class='fa fa-times-circle' /> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+        </t>
+
+        <t t-jquery="t[t-if='order.get_change(line)']" t-operation="replace">
+            <t t-if='order.wk_get_change(line)'>
+                <td class='col-change highlight'>
+                    <t t-esc='widget.format_currency_no_symbol(order.wk_get_change(line))' />
+                </td>
+            </t>
+        </t>
+
+        <t t-jquery="t[t-if='!order.get_change(line)']" t-operation="replace">
+            <t t-if='!order.wk_get_change(line)'>
+                <td class='col-change'></td>
+            </t>
+        </t>
+    </t>
+    
+</templates>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--
+         |======================================================================
+         | MRP Work Order Form View
+         |======================================================================
+         |
+         | @inherit mrp.mrp_production_workcenter_form_view_inherit
+         |
+         | Allow any user with the permission level of Manufacturing/Manager
+         | assigned to create/edit/delete work orders and work order information
+         |
+        -->
+        <record id="mrp_workorder_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.workorder.form.view.inherit</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="groups_id" eval="[(4, ref('mrp.group_mrp_manager'))]"/>
+            <field name="arch" type="xml">
+                <form position="attributes">
+                    <attribute name="create">1</attribute>
+                    <attribute name="delete">1</attribute>
+                </form>
+                <field name="workcenter_id" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <field name="production_id" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+                <xpath expr="//field[@name='active_move_line_ids']/tree" position="attributes">
+                    <attribute name="create">1</attribute>
+                    <attribute name="delete">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!--
+         |======================================================================
+         | MRP Work Order Form View - Add `sequence` field
+         |======================================================================
+        -->
+        <record id="mrp_workorder_form_view_inherit_sequence" model="ir.ui.view">
+            <field name="name">mrp.workorder.form.view.inherit.sequence</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="production_id" position="after">
+                    <field name="sequence" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+        <!--
+         |======================================================================
+         | MRP Work Order Form View - Allow managers to edit `sequence` field
+         |======================================================================
+        -->
+        <record id="mrp_workorder_form_view_inherit_sequence_manager" model="ir.ui.view">
+            <field name="name">mrp.workorder.form.view.inherit.sequence.manager</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp_workorder_form_view_inherit_sequence"/>
+            <field name="groups_id" eval="[(4, ref('mrp.group_mrp_manager'))]"/>
+            <field name="arch" type="xml">
+                <field name="sequence" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

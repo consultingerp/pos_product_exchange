@@ -1,0 +1,71 @@
+<odoo>
+    <data>
+        <template id="delivery_order_report" inherit_id="stock.report_picking">
+			
+                <xpath expr="//table[@class='table table-condensed'][2]"  position="after">
+					<table class="table table-condensed">
+					<t t-set="total_qty" t-value="0.0"/>
+					<t t-foreach="docs" t-as="o">
+						<t t-foreach="o.move_lines.sorted(key=lambda m: m.product_id.id)" t-as="move">
+						    <t t-if="move.product_qty">
+								<t t-set="total_qty" t-value="move.product_qty+total_qty"/>
+							</t>
+							<t t-if="not move.product_qty">
+								<t t-set="total_qty" t-value="move.product_uom._compute_quantity(move.quantity_done, move.product_id.uom_id, rounding_method='HALF-UP')+total_qty"/>
+							</t>
+							
+                           
+						</t>
+					</t>
+					<tr>
+					    
+						<td><b>Total Quantities</b></td>
+						<td><b><t t-esc="total_qty" /></b></td>
+					</tr>
+					   
+					</table>
+				</xpath>
+            
+		
+		</template>
+		<template id="delivery_order_report_deliveryslip" inherit_id="stock.report_delivery_document">
+		    <xpath expr="//div[@class='page']/p[1]"  position="before">
+				<table class="table table-condensed">
+				    <t t-set="total" t-value="0.0"/>
+					<t t-set="total_ordered" t-value="0.0"/>
+					<t t-set="total_done" t-value="0.0"/>
+					<t t-foreach="docs" t-as="o">
+					   
+					    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+						
+						<t t-if="not o.move_line_ids">
+							<t t-foreach="o.move_line_ids" t-as="move">
+								<t t-set="total" t-value="move.ordered_qty+total"/>
+							</t>
+						</t>
+						<t t-if="o.move_line_ids">
+							<t t-foreach="o.move_line_ids" t-as="move_line">
+								<t t-if="move_line.state == 'done'">
+									<t t-set="total_done" t-value="move_line.qty_done+total_done"/>
+									
+									
+								</t>
+								<t t-set="total_ordered" t-value="move_line.ordered_qty+total_ordered"/>
+								
+							</t>
+						</t>
+						
+				    </t>
+					<tr>
+					    <td><b>Total Ordered Quantities</b></td>
+						<td><b><t t-esc="total_ordered" /></b></td>
+						<td><b>Total Done Quantities</b></td>
+						<td><b><t t-esc="total_done" /></b></td>
+						
+					</tr>
+				</table>
+			
+			</xpath>
+		</template>
+    </data>
+</odoo>

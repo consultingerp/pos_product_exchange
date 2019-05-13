@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <templates id="pos_orders_reprint_template" inherit_id="point_of_sale.template" xml:space="preserve">
+
+
+
+ <!-- SeeAllOrdersScreenWidget -->
+    <t t-extend="SeeAllOrdersScreenWidget">
+        <!-- -->
+        <t t-jquery="tr" t-operation="append">
+        	<th>Receipt</th>
+        </t>
+
+    </t>
+    
+
+ <!-- OrdersLine -->
+    <t t-extend="OrdersLine">
+        <!-- -->
+        <t t-jquery="tr" t-operation="append">
+			 <td>
+		        <button class="print-order" t-att-id='order.id' style="cursor: pointer; color: #fff; background-color: #7F82AC;"><i class="fa fa-print"></i> Print</button>
+		    </td>
+        </t>
+
+    </t>
+
+
+   <t t-name="ReceiptScreenWidgetNew">
+        <div class='receipt-screen screen'>
+            <div class='screen-content'>
+                <div class='top-content'>
+                    <span class='button back'>
+                        <i class='fa fa-angle-double-left'></i>
+                        back
+                    </span>
+                </div>
+                <div class="centered-content">
+                    <div class="button print ayaz">
+                        <i class='fa fa-print'></i> Print Receipt
+                    </div>
+                    <div class="pos-receipt-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+
+
+    <t t-name="PosTicket1">
+        <div class="pos-sale-ticket">
+		    <style>
+			.pos-sale-ticket th{
+					font-weight: 100;
+			}
+			
+			</style>
+            <img  style="max-height:35px;display:block;margin:0 auto;margin-bottom: 15px" src="/pos_orders_reprint/static/src/img/logo.png" />
+            <div class="pos-center-align">
+                GST Reg No: <t t-esc="widget.pos.company.vat"/><br/>
+            </div>
+            <div class="receipt-user">
+                Order #: <t t-esc="order.pos_reference"/><br/>
+            </div>
+            <div class="receipt-user">
+                <!-- Shop: <t t-esc="widget.pos.company.name"/><br/> -->
+                Shop: Boulevard Mall
+            </div>
+             <div class="receipt-user">
+                Customer: <br/>
+            </div>
+            <div class="receipt-user">
+                Date: <t t-esc="order.date_order"/><br />
+            </div>
+            <div class="receipt-user">
+                POS ID: <t t-esc="widget.pos.config.name"/><br />
+            </div>
+            <div style='text-align:center'>
+                    <t t-esc="widget.pos.config.name"/>
+            </div>
+            <br />
+
+
+            <table style="width: auto !important;" class='receipt-orderlines'>
+                <colgroup>
+                    <col width='50%' />
+                    <col width='25%' />
+                    <col width='25%' />
+                </colgroup>
+                <tr style="outline: thin solid">
+                    <th>ITEM</th>
+                    <th class="">QTY</th>
+                    <th class="" >PKR</th>
+                    <th class="pos-right-align">Total</th>
+                </tr>
+                 <tr style='border-bottom:1pt solid black;' t-foreach="orderlines" t-as="orderline">
+                    <td>
+                        <t t-esc="orderline.product_id"/>
+                         <t t-if="orderline.discount > 0">
+                            <div class="pos-disc-font">
+                                Offer disc. <t t-esc="orderline.discount"/>% discount
+                            </div>
+                        </t>
+                    </td>
+                    <td class="">
+                        <t t-esc="orderline.qty"/>
+                    </td>
+                    <td class="" >
+                        <t t-esc="orderline.price_unit"/>
+                    </td>
+                     <td class="pos-right-align">
+                        <t t-esc="orderline.price_unit"/>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <table class='receipt-total'>
+                <tr>
+                    <td>Subtotal:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="widget.format_currency(subtotal)" />
+                    </td>
+                </tr>
+
+
+                <tr class="emph">
+                    <td><b>Total:</b></td>
+                    <td class="pos-right-align">
+                        <b><t t-esc="widget.format_currency(order.amount_total)"/></b>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <table class='receipt-paymentlines'>
+                <t t-foreach="paymentlines" t-as="line">
+                  <tr>
+                      <td>
+                          <t t-esc="line.name"/> (PKR)
+                      </td>
+                      <td class="pos-right-align">
+                          <t t-esc="widget.format_currency(line.amount)"/>
+                      </td>
+                  </tr>
+                </t>
+            </table>
+            <br />
+            <table class='receipt-change'>
+                <tr><td>Change:</td><td class="pos-right-align">
+                    <t t-esc="widget.format_currency(change)"/>
+                    </td></tr>
+            </table>
+			 <t t-if="widget.pos.config.receipt_footer">
+                <br />
+                <div style='text-align:center'>
+                    <t t-esc="widget.pos.config.receipt_footer" />
+					<div><b>Duplicate</b></div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+
+
+
+
+  	</templates>
+
+

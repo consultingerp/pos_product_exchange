@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<!-- Modificamos el footer por defecto -->
+<template id="external_layout_footer" inherit_id="web.external_layout_background">
+
+</template>
+
+
+</odoo>

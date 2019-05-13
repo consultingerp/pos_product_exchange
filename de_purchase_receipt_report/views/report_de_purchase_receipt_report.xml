@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <template id="report_de_purchase_receipt_reports">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <br></br><br></br><br></br><br></br><br></br>
+                        <t t-foreach="docs" t-as="o">
+                            <h1 class="text-center"><t t-esc="o.number"/></h1>
+                            
+                            <div class="row">
+                                <div style="padding-left:150px;" class="col-xs-6">
+                                    <strong>Vendor:</strong>
+                                    <span t-esc="o.partner_id.name"/><br/><br/>
+                                    <strong>Payment:</strong>
+                                    <span t-esc="o.pay_now"/><br/><br/>
+                                    <strong>Account:</strong>
+                                    <span t-esc="o.account_id.code"/>
+                                    <span t-esc="o.account_id.name"/><br/><br/>
+                                    <strong>Bill Reference:</strong>
+                                    <span t-esc="o.reference"/><br/><br/>
+                                </div>
+                                <div style="padding-left:200px;" class="col-xs-6">
+                                    <strong>Bill Date:</strong>
+                                    <span t-esc="o.date"/><br/><br/>
+                                    <strong>Due Date:</strong>
+                                    <span t-esc="o.date_due"/><br/><br/>
+                                    <strong>Journal:</strong>
+                                    <span t-esc="o.journal_id.name"/><br/><br/>
+                                    <strong>Amount:</strong>
+                                    <span t-esc="'{0:,.2f}'.format(int(o.amount))"/><br/><br/>
+                                    <br/><br/>
+                                </div>
+                            </div>
+                            <div style="font-size:24px;">Bill Items</div>
+                            <table class = "table table-bordered" border="3" style="margin-bottom:30px">
+                                <thead>
+                                    <tr>
+                                        <th> Product</th>
+                                        <th> Account </th>
+                                        <th> Description </th>
+                                        <th> Quantity </th>
+                                        <th> Unit Price </th>
+                                        <th> Tax </th>
+                                        <th> Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.line_ids" t-as="l">
+                                        <tr>
+                                            <td><span t-esc="l.product_id.name"/></td>
+                                            <td><span t-esc="l.account_id.code"/>
+                                                <span t-esc="l.account_id.name"/>
+                                            </td>
+                                            <td><span t-esc="l.name"/></td>
+                                            <td><span t-esc="l.quantity"/></td>
+                                            <td><span t-esc="'{0:,.2f}'.format(int(l.price_unit))"/></td>
+                                            <td><span t-esc="l.tax_ids.name"/></td>
+                                            <td><span t-esc="'{0:,.2f}'.format(int(l.price_subtotal))"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+</odoo>

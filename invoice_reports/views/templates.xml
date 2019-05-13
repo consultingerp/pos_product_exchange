@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="myinherited_account_invoice_report" inherit_id="account.report_invoice_document">
+			<xpath expr="//table[@name='invoice_line_table']/thead/tr/th[3]" position="inside">
+				<a class="text-right">Analytic Account</a>
+				<a class="text-right">Analytic Tags</a>
+			</xpath>
+			
+		</template>
+    </data>
+</odoo>

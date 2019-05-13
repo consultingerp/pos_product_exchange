@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--
+         |======================================================================
+         | MRP Work Order Tree View
+         |======================================================================
+         |
+         | @inherit mrp.mrp_production_workcenter_tree_view_inherit
+         |
+         | Allow any user with the permission level of Manufacturing/Manager
+         | assigned to create workorders from the tree view.
+         |
+        -->
+        <record id="mrp_workorder_tree_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.workorder.tree.view.inherit</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_tree_view_inherit"/>
+            <field name="groups_id" eval="[(4, ref('mrp.group_mrp_manager'))]"/>
+            <field name="arch" type="xml">
+                <tree position="attributes">
+                    <attribute name="create">1</attribute>
+                    <attribute name="delete">1</attribute>
+                </tree>
+            </field>
+        </record>
+
+        <!--
+         |======================================================================
+         | MRP Work Order Tree View - Add `sequence` field
+         |======================================================================
+        -->
+        <record id="mrp_workorder_tree_view_inherit_sequence" model="ir.ui.view">
+            <field name="name">mrp.workorder.tree.view.inherit.sequence</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_tree_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="sequence"/>
+                </field>
+                <tree position="attributes">
+                    <attribute name="default_order">production_id,sequence</attribute>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

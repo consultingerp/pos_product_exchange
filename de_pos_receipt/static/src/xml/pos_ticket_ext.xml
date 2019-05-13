@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PosTicket">
+        <div class="pos-sale-ticket">
+            <div class="pos-center-align">
+                <!-- <img t-att-src="'data:image/png;base64,'+ widget.pos.company.logo" style="max-height: 2cm; width: 80%;"/> -->
+                 <!-- OR widget.pos.config.pos_logo -->
+                 <!-- OR <img t-att-src="widget.pos.company_logo_base64" style="max-height: 1cm; max-width: 4cm;"/>-->
+            </div>
+            <!-- <img t-esc='widget.pos.company.image'/> -->
+            <div class="pos-center-align">
+                GST Reg No: <t t-esc="widget.pos.company.vat"/><br/>
+            </div>
+            <br />
+            <div class="receipt-user">
+                Receipt Ref.:
+<!--                     <t t-esc="order.job_created_name"/>/ -->
+                    <t t-esc="order.name"/><br/>
+                <br/>
+            </div>
+            <div class="receipt-user">
+                Shop: <b><t t-esc="widget.pos.config.name"/></b><br/>
+
+<!--                 Shop: Boulevard Mall -->
+            </div>
+
+            <div class="receipt-user">
+                Customer: <t t-esc="order.get_client() and order.get_client().name"/>
+                <t t-if="order.get_client() and  order.get_client().barcode != false ">
+                    <t t-esc="order.get_client() and order.get_client().barcode"/>
+                </t>
+                <br/>
+            </div>
+            <div class="receipt-user">
+                <t t-if="order.get_client() and  order.get_client().phone != false ">
+                    Phone:
+                    <t t-esc="order.get_client() and order.get_client().phone"/>
+                </t>
+                <br/>
+            </div>
+            <div class="receipt-user">
+                Date: <t t-esc="order.formatted_validation_date"/><br />
+            </div>
+<!--             <div class="receipt-user"> -->
+<!--                 POS ID: <t t-esc="widget.pos.config.name"/><br /> -->
+<!--             </div> -->
+            <br />
+            <t t-if="receipt.header">
+                <div style='text-align:center'>
+                    <t t-esc="receipt.header" />
+                </div>
+                <br />
+            </t>
+            <table class='receipt-orderlines'>
+                <colgroup>
+                    <col width='50%' />
+                    <col width='15%' />
+                    <col width='15%' />
+                    <col width='20%' />
+                </colgroup>
+                <tr style="outline: thin solid">
+                    <th>ITEM</th>
+                    <th class="pos-right-align">QTY</th>
+                    <th class="pos-right-align">PKR</th>
+                    <th class="pos-right-align">Total</th>
+                </tr>
+                <t t-set="totl_qty" t-value="0"/>
+                <tr style='border-bottom:1pt solid black;' t-foreach="orderlines" t-as="orderline">
+                    <td>
+                        <t t-esc="orderline.get_product().display_name"/>
+                        <div class="pos-disc-font">
+                            <t t-esc="orderline.get_barcode() or ''"/>
+                        </div>
+                        <t t-if="orderline.get_discount() > 0">
+                         <div>
+                              Offer disc. <t t-esc="orderline.get_discount()"/>%
+                         </div>
+                        </t>
+                    </td>
+                    <td class="pos-right-align">
+
+                        <t t-esc="orderline.get_quantity_str()"/>
+
+                    </td>
+                    <td class="pos-right-align">
+
+                   <!--     <t t-if="widget.pos.config.id == 2">
+                            <t t-set="unit_price" t-value="0"/>
+                        </t>-->
+                        <t t-if="widget.pos.config.is_partner_pos == false">
+                            <t t-set="unit_price" t-value="orderline.get_unit_price()"/>
+                        </t>
+                     <!--   <t t-if="widget.pos.config.id == 4 or widget.pos.config.id == 6 ">
+                            <t t-set="unit_price" t-value=""/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="unit_price" t-value="orderline.get_unit_price()"/>
+                        </t>-->
+                        <!--<t t-if="widget.pos.config.id != 4">
+                            <t t-if="widget.pos.config.id != 6">
+                                <t t-set="unit_price" t-value="orderline.get_unit_price()"/>
+                            </t>
+                        </t>-->
+                        <t t-set="quantity" t-value="orderline.quantity"/>
+                        <t t-set="discount" t-value="orderline.discount"/>
+                        <t t-if="orderline.get_product().list_price != unit_price">
+                            <div style="text-decoration:line-through">
+                                <t t-if="widget.pos.config.is_partner_pos == false">
+                                <t t-esc="orderline.get_product().list_price" />
+                                </t>
+                            </div>
+                            <t t-if="discount">
+                                <t t-set="total_disc_price"  t-value="(unit_price * discount) / 100"/>
+                                <t t-esc="(unit_price- total_disc_price)"/>
+                            </t>
+                            <t t-if="discount == 0.00">
+                                <t t-esc="unit_price"/>
+                            </t>
+                        </t>
+                        <t t-if="orderline.get_product().list_price == unit_price">
+                            <div>
+                                <t t-if="widget.pos.config.is_partner_pos == false">
+                                <t t-esc="orderline.get_product().list_price" />
+                                </t>
+                            </div>
+                        </t>
+                    </td>
+                    <t t-set="totl_qty" t-value="totl_qty + orderline.get_quantity()"/>
+                    <td class="pos-right-align">
+                        <t t-if="widget.pos.config.is_partner_pos == false">
+                        <t t-esc="orderline.get_display_price()"/>
+                        </t>
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <table class='receipt-total'>
+                <tr>
+                    <td>Total QTY:</td>
+                    <td class="pos-right-align">
+                        <t t-esc="totl_qty"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Subtotal:</td>
+                    <td class="pos-right-align">
+                        <t t-if="widget.pos.config.is_partner_pos == false">
+                        <t t-esc="widget.format_currency(order.get_total_without_tax())"/>
+                        </t>
+                    </td>
+                </tr>
+                <!-- <t t-foreach="order.get_tax_details()" t-as="taxdetail">
+                    <tr>
+                        <td><t t-esc="taxdetail.name" /></td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(taxdetail.amount)" />
+                        </td>
+                    </tr>
+                </t> -->
+                <tr>
+                    <t t-if="order.get_total_discount() > 0">
+                        <td>Discount:</td>
+                        <td class="pos-right-align">
+                            <t t-if="widget.pos.config.is_partner_pos == false">
+                            <t t-esc="widget.format_currency(order.get_total_discount())"/>
+                            </t>
+                        </td>
+                    </t>
+                </tr>
+         <t t-if="widget.pos.config.is_partner_pos == false">
+                <tr class="emph">
+                    <td>Total:</td>
+                    <td class="pos-right-align">
+
+                        <t t-esc="widget.format_currency(order.get_total_with_tax())"/>
+
+                    </td>
+                </tr>
+         </t>
+            </table>
+            <br />
+            <table class='receipt-paymentlines'>
+                <t t-foreach="paymentlines" t-as="line">
+                  <tr>
+                      <td>
+                          <t t-esc="line.name"/>
+                      </td>
+                      <td class="pos-right-align">
+
+                          <t t-if="widget.pos.config.is_partner_pos == false">
+                          <t t-esc="widget.format_currency(line.get_amount())"/>
+                          </t>
+                      </td>
+                  </tr>
+                </t>
+            </table>
+            <br />
+            <table class='receipt-change'>
+                <tr><td>Change:</td><td class="pos-right-align">
+                    <t t-esc="widget.format_currency(order.get_change())"/>
+                    </td></tr>
+            </table>
+
+            <br />
+            <div style='text-align:left'>
+                <span>Thanks for shopping with us!</span>
+                 <br />
+                <span>Terms &amp; Conditions:</span>
+                 <br />
+                <span>- Exchange within 14 days</span>
+                <br />
+                <span>- Items should be in their original &amp; re-sellable condition </span>
+                <br />
+                <span>- All tags &amp; packaging must be intact </span>
+                <br />
+                <span>- Valid receipt/proof of purchase must be shown </span>
+                <br />
+                <span>Prices are inclusive of all Govt. taxes</span>
+                <br />
+                <span>For feedback, write us at cs@shopbrumano.com</span>
+                <br />
+                <span>Shop online at www.shopbrumano.com</span>
+            </div>
+
+        </div>
+		
+		
+	</t>
+
+</templates>

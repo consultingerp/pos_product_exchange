@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="mrp_production_workcenter_inherit_material_requsition" model="ir.ui.view">
+            <field name="name">mrp.workorder.form.view</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                     <button name="%(workorder_material_purchase_requisition_action)d"
+                             context="{'default_reason':name}" attrs="{'invisible': [('state', 'in', ['done','cancel'])]}"
+                             string="Create Material Requisition" type="action" class="oe_highlight" />
+                </xpath>
+                <xpath expr="//sheet/div[@class='oe_button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_see_material_requisitions" 
+                            attrs="{'invisible': [('material_requisition_count', '=', 0)]}" 
+                            type="object" icon="fa-truck">
+                        <field string="Material Requsitions" name="material_requisition_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

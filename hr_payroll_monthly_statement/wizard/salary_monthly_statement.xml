@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Salary Monthly Statement Wizard -->
+        <record id="view_salary_monthly_statment" model="ir.ui.view">
+            <field name="name">Payroll Monthly Statement</field>
+            <field name="model">salary.monthly.statement</field>
+            <field name="arch" type="xml">
+                <form string="Payroll Monthly Statement">
+                    <label for="for_genral" string="This wizard export monthly payroll statement."/>
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                        	<field name="end_date"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <group >
+                        <group colspan="4" string="Select Employees (Optional)">
+                            <field name="employee_ids" nolabel="1" colspan="4"/>
+                        </group>
+                    </group>
+                    <footer>
+<!--                        <button name="print_salary_statement_pdf" type="object" string="Print PDF" class="btn-primary"/>-->
+<!--                        or-->
+                        <button name="print_salary_statement_excel" groups="hr_payroll.group_hr_payroll_user" type="object" string="Export Excel" class="btn-primary"/>
+                        or
+                        <button string="_Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Salary Monthly Statement Wizard Excel Output -->
+        <record id="salary_monthly_statement_xls_output_view" model="ir.ui.view">
+         <field name="name">Excel Output</field>
+         <field name="model">salary.monthly.statement.excel</field>
+         <field name="arch" type="xml">
+             <form string="Payroll Monthly Statement">
+                   <separator colspan="4" string="Please save file as .xls excel format"/>
+                   <field name="name" invisible="1"/>
+                   <field name="xls_output" filename='name'/>
+                   <footer>
+                       <button string="Cancel" class="oe_link" special="cancel"/>
+                   </footer>
+             </form>
+         </field>
+       </record>
+
+        <record id="action_salary_monthly_statment" model="ir.actions.act_window">
+            <field name="name">Payroll Monthly Statement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">salary.monthly.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_salary_monthly_statment"/>
+            <field name="target">new</field>
+        </record>
+        
+        <menuitem id="menu_salary_monthly_statment_report" parent="hr_payroll.menu_hr_payroll_root" 
+                  name="Report" groups="hr_payroll.group_hr_payroll_user" sequence="200" 
+                  />
+        <menuitem id="menu_salary_monthly_statment" parent="menu_salary_monthly_statment_report" 
+                  name="Payroll Monthly Statement" sequence="201" 
+                  action="action_salary_monthly_statment" groups="hr_payroll.group_hr_payroll_user"/>
+
+    </data>
+</openerp>

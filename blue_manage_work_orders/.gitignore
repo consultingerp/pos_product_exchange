@@ -1,0 +1,11 @@
+*.pyc
+_om
+.om
+_make_tmp
+_lib
+*.iml
+*.idea
+*.*~
+*.DS_Store
+tasks.py
+.vscode

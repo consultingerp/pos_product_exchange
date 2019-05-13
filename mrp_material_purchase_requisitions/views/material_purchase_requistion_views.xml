@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="material_purchase_requisition_form_view_inherit_mrp_id" model="ir.ui.view">
+            <field name="name">material.purchase.requisition.form.view.inherit.mrp_id</field>
+            <field name="model">material.purchase.requisition</field>
+            <field name="inherit_id" ref="material_purchase_requisitions.material_purchase_requisition_form_view"/>
+            <field name="arch" type="xml">
+                <field name="location_id" position="after">
+                    <field name="mrp_id" />
+                    <field name="workorder_id" />
+                </field>
+            </field>
+        </record>
+    </data>
+    
+</odoo>

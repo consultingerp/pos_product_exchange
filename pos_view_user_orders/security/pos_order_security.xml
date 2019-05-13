@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<odoo>
+
+     <record id="group_show_user_order_only" model="res.groups">
+        <field name="name">Show login user's POS Orders only</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+        <field name="implied_ids" eval="[(4, ref('point_of_sale.group_pos_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root'))]"/>
+    </record>
+    
+    <record id="wk_pos_orders_visiblity" model="ir.rule">
+        <field name="name">Restrict POS Orders</field>
+        <field name="model_id" ref="point_of_sale.model_pos_order" />
+         <field name="groups" eval="[(4, ref('pos_view_user_orders.group_show_user_order_only'))]"/>
+        <field name="global" eval="True" />
+        <field name="domain_force">[('user_id','=',user.id)]</field>
+    </record>
+    
+</odoo>

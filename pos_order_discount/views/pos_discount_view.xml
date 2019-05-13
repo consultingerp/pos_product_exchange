@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+<odoo>
+    <record model="ir.ui.view" id="wk_view_pos_config_form">
+        <field name="name">pos.config.form.view</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <h2>Discount</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-xs-12 col-md-6 o_setting_box" title="Choose discount from the given list that you wishes to make available in current POS Session.">
+                        <div class="o_setting_right_pane">
+                            <label for="wk_discounts" string="Select Discounts"/>
+                            <div class="text-muted">
+                                Choose discounts from the given list for current POS
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="wk_discounts" widget="many2many_tags"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="wk_discount_product_id" string="Discount Product"/>
+                            <div class="text-muted">
+                                Select Discount Product
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="wk_discount_product_id" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </xpath>
+        </field>
+    </record>
+    <record id="wk_dicount_form" model="ir.ui.view">
+        <field name="name">pos.order.discount.form</field>
+        <field name="model">pos.order.discount</field>
+        <field name="arch" type="xml">
+            <form string="Discount form">
+                <sheet>
+                    <field name="file" widget="image" class="oe_avatar oe_left" />
+                    <div class="oe_title">
+                        <div class="oe_edit_only">
+                            <label for="name" string="Discount name" />
+                        </div>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <label for="discount_method" />
+                            <div style="width:150%">
+                                <field name="discount_method" class="oe_inline" />
+                                <field name="discount_type" style="margin-left:2px" class="oe_inline"  />
+                            </div>
+                        </group>
+                        <group>
+                            <field name="discount_on" />
+                        </group>
+                    </group>
+                    <label for="short_description" />
+                    <field name="short_description" />
+                    <label for="description" />
+                    <field name="description" placeholder="For your Eye Only..." />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wk_dicount_tree" model="ir.ui.view">
+        <field name="name">pos.order.discount.tree</field>
+        <field name="model">pos.order.discount</field>
+        <field name="arch" type="xml">
+            <tree string="Discounts">
+                <field name="name" />
+                <field name="discount_method_function" />
+                <field name="discount_on" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="wk_discount_id">
+        <field name="name">POS Order discount</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pos.order.discount</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="wk_dicount_tree" />
+    </record>
+
+    <menuitem name="POS Discounts" id="wk_discount_id1" action="wk_discount_id" parent="point_of_sale.menu_point_config_product" />
+</odoo>

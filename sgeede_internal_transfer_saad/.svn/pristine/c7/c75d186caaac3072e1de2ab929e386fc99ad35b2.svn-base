@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    	<template id="report_picking_inherit" inherit_id="stock.report_picking">
+    		<xpath expr="//table[hasclass('table-condensed')][1]" position="before">
+    			<div class="row mt8 mb24" t-if="o.transfer_id">
+	    			<div class="col-xs-4">
+	    				<span><strong>Sender:</strong></span>
+	    				<div t-field="o.transfer_id.create_uid"/>
+					</div>
+
+	    			<div class="col-xs-4">
+	    				<span><strong>Source Warehouse:</strong></span>
+	    				<div t-field="o.transfer_id.source_warehouse_id"/>
+					</div>
+
+	    			<div class="col-xs-4">
+	    				<span><strong>Destination Warehouse:</strong></span>
+	    				<div t-field="o.transfer_id.dest_warehouse_id"/>
+					</div>
+				</div>
+			</xpath>
+		</template>
+
+	</data>
+</odoo>

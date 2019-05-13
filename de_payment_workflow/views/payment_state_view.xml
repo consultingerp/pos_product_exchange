@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Payment State Form View -->
+        <record id="payment_state_form_view" model="ir.ui.view">
+            <field name="name">payment.state.form.view</field>
+            <field name="model">account.payment_state</field>
+            <field name="arch" type="xml">
+                <form string="Payment State">
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="authority"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!-- Payment State Tree View -->
+        <record id="payment_state_tree_view" model="ir.ui.view">
+            <field name="name">payment.state.tree.view</field>
+            <field name="model">account.payment_state</field>
+            <field name="arch" type="xml">
+                <tree string="Payment States">
+                    <field name="name"/>
+                    <field name="authority"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Payment Action View -->
+        <record id="payment_state_action" model="ir.actions.act_window">
+            <field name="name">Payment State</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.payment_state</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to create a new Payment State
+                </p>
+            </field>
+        </record>
+        <!-- Menu Item -->
+        <menuitem id="payment_state_menu" name="" parent="payment.root_payment_menu" action="payment_state_action" sequence="20"/>
+    </data>
+</odoo>

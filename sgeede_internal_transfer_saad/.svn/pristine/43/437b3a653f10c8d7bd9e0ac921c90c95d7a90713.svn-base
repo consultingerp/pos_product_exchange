@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+from odoo import fields, api, models
+
+class Picking(models.Model):
+    _inherit = 'stock.picking'
+
+    @api.multi
+    def action_done(self):
+        res = super(Picking, self).action_done()
+        if self.transfer_id and self._context.get('active_model') != 'stock.internal.transfer':
+            company = self.env['res.users'].browse(self._uid).company_id
+            source_warehouse = self.transfer_id.source_warehouse_id
+            dest_warehouse = self.transfer_id.dest_warehouse_id
+            if source_warehouse and dest_warehouse:
+                if source_warehouse.lot_stock_id == self.location_id and company.transit_location_id == self.location_dest_id:
+                    self.transfer_id.action_create_incoming()
+                elif company.transit_location_id == self.location_id and dest_warehouse.lot_stock_id == self.location_dest_id:
+                    self.transfer_id.write({'state': 'done'})
+
+        return True

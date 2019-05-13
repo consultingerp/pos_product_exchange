@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--
+         |======================================================================
+         | MRP Work Order Kanban View
+         |======================================================================
+         |
+         | @inherit mrp.mrp_workcenter_line_kanban_inherit
+         |
+         | Allow any user with the permission level of Manufacturing/Manager
+         | assigned to create workorders from the kanban view.
+         |
+        -->
+        <record id="mrp_workorder_kanban_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.workorder.kanban.view.inherit</field>
+            <field name="model">mrp.workorder</field>
+            <field name="inherit_id" ref="mrp.workcenter_line_kanban"/>
+            <field name="groups_id" eval="[(4, ref('mrp.group_mrp_manager'))]"/>
+            <field name="arch" type="xml">
+                <kanban position="attributes">
+                    <attribute name="create">1</attribute>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>
